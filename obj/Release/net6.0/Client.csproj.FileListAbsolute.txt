@@ -14,6 +14,11 @@
 /Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/Client.MvcApplicationPartsAssemblyInfo.cache
 /Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/Client.RazorAssemblyInfo.cache
 /Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/Client.RazorAssemblyInfo.cs
+/Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/staticwebassets/msbuild.Client.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/staticwebassets/msbuild.build.Client.props
+/Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/staticwebassets/msbuild.buildMultiTargeting.Client.props
+/Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/staticwebassets/msbuild.buildTransitive.Client.props
+/Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/staticwebassets.pack.json
 /Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/staticwebassets.build.json
 /Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/staticwebassets.development.json
 /Users/yohanesjoese/Projects/MVC/Client/obj/Release/net6.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
