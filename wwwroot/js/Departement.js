@@ -33,7 +33,14 @@ $("#data-departement").DataTable({
         },
     ],
     dom: "Bfrtip",
-    buttons: ["pdf"]["colvis"],
+    buttons: {
+        buttons: [
+            { extend: 'pdf', className: 'btn btn-secondary' },
+            { extend: 'excel', className: 'btn btn-success' },
+            { extend: 'copy', className: 'btn btn-light' },
+            {extend: 'colvis', className: 'btn btn-info'}         
+        ],
+    }
 });
 
 $.ajax({
