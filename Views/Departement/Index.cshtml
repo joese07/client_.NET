@@ -11,8 +11,8 @@
         <h5 class="card-title m-0">Departement</h5>
     </div>
     <div class="card-body">
-        <button type="submit" class="btn btn-primary swalDefaultSuccess">cek alert</button>
         <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createModal">Tambah Data</button>
+        <h4>Export File : </h4>
         <table class="table table-striped" id="data-departement">
             <thead>
                 <tr>
@@ -42,15 +42,17 @@
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <form>
+                    <form class="needs-validation" novalidate>
                         <div class="form-group">
                             <label for="exampleInputDepartement">Nama Departement</label>
-                            <input type="text" class="form-control" id="InputNameDepartement" placeholder="Enter departement" required>
+                            <input type="text" class="form-control" name="departementName" id="InputNameDepartement" placeholder="Enter departement" required>
+                            <div class="invalid-feedback">Please input name departement</div>
                         </div>
                         <div class="form-group">
                             <label>Division</label>
-                            <select class="form-control" id="InputDivisionIdDepartement" required>  
+                            <select class="form-control" name="divisionId" id="InputDivisionIdDepartement" required>
                             </select>
+                            <div class="invalid-feedback">Please select a valid division</div>
                         </div>
                         <button type="submit" class="btn btn-primary swalDefaultSuccess swalDefaultError" onclick="createDepartement()">Submit</button>
                     </form>
@@ -74,7 +76,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form>
+                <form class="needs-validation" novalidate>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="idDepartement">Id Departement</label>

@@ -32,6 +32,8 @@ $("#data-departement").DataTable({
             }
         },
     ],
+    dom: "Bfrtip",
+    buttons: ["pdf"]["colvis"],
 });
 
 $.ajax({
@@ -46,26 +48,25 @@ $.ajax({
 });
 
 
-function createDepartement() {
 
-    const nameDepartement = $("#InputNameDepartement").val();
-    const DivisionIdDepartement = $("#InputDivisionIdDepartement").val();
+function createDepartement() {
+    const formData = {
+        name: $("#InputNameDepartement").val(),
+        divisionId: $("#InputDivisionIdDepartement").val(),
+    };
 
     $.ajax({
         url: 'http://localhost:29539/api/Departement',
         method: 'POST',
         dataType: 'json',
-        data: {
-            name: nameDepartement,
-            divisionId: parseInt(DivisionIdDepartement)
-        },
+        data: formData,
+        cache: false,
         success: function (data) {
-            alert("Add Data Successfull" + data);
-        },
-        error: function (data) {
-            getAlertError();
+            console.log(data)
+            Swal.fire("Done!", `${data.message}`, "success")
         }
     })
+
 }
 
 
@@ -118,10 +119,10 @@ function editDepartement(name, divisionId, id) {
     });
 
     let dataNama = "";
-    dataNama = `<input type="text" class="form-control" id="dataNama" value="${name}">`;
+    dataNama = `<input type="text" class="form-control" id="dataNama" value="${name}"> <div class="invalid-feedback">Please input name departement</div>`;
 
     let dataDivisionId = "";
-    dataDivisionId = `<select class="form-control" id="DivisionIdDepartement"></select>`;
+    dataDivisionId = `<select class="form-control" id="DivisionIdDepartement"></select>  <div class="invalid-feedback">Please select a valid division</div>`;
 
     let dataEdit = "";
     dataEdit = `<button type="submit" class="btn btn-primary" onclick="saveEdit('${id}')">Save Change</button >`;
@@ -144,20 +145,35 @@ function saveEdit(id) {
             name: dataName,
             divisionId: dataDivisionId
         },
-        success: function (data) {
-            alert('Edit data successful' + data);
+        success: function (responses) {
+            Swal.fire("Done!", "It was succesfully change!", "success")
         }
     })
 }
 
 function deleteDepartement(id) {
-    $.ajax({
-        url: `http://localhost:29539/api/Departement/${id}`,
-        method: 'DELETE',
-        dataType: 'json',
-        success: function (data) {
-            alert("Delete Data Successfull" + data)
-            location.reload();
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `http://localhost:29539/api/Departement/${id}`,
+                type: 'DELETE',
+                dataType: 'json',
+                success: function () {
+                    Swal.fire("Done!", "It was succesfully deleted!", "success").then(function () {
+                        location.reload();
+                    })
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    Swal.fire("Error deleting!", "Please try again", "error");
+                }
+            });
         }
-    })
+    });
 }
