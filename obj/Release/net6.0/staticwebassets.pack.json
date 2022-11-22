@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets/js/Division.js"
     },
     {
+      "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/Employee.js",
+      "PackagePath": "staticwebassets/js/Employee.js"
+    },
+    {
       "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

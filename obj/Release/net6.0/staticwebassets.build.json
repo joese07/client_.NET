@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Vg4At0i8+cwcyQvseISOHoXw7AJq6HkjhYJgdSWdZXI=",
+  "Hash": "QP9oGjES3GrhJCdKALsQirPxIhNQZMfu3JW8Lo9oYIM=",
   "Source": "Client",
   "BasePath": "_content/Client",
   "Mode": "Default",
@@ -151,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/Division.js"
+    },
+    {
+      "Identity": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/Employee.js",
+      "SourceId": "Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/",
+      "BasePath": "_content/Client",
+      "RelativePath": "js/Employee.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/Employee.js"
     },
     {
       "Identity": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/site.js",

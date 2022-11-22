@@ -137,3 +137,59 @@ function deleteDivision(id) {
         }
     });
 }
+
+$(document).ready(function () {
+    $.ajax({
+        url: 'http://localhost:29539/api/Departement',
+    }).done((res) => {
+
+        //Data Series
+        const divPemasaran = res.data.filter((data) => data.divisionId == 5002);
+
+        const divPersonalia = res.data.filter((data) => data.divisionId == 5003);
+
+        const divPembelanjaan = res.data.filter((data) => data.divisionId == 5004);
+
+        const divUmum = res.data.filter((data) => data.divisionId == 5005);
+
+        const divHrd = res.data.filter((data) => data.divisionId == 5006);
+
+
+        const divIt = res.data.filter((data) => data.divisionId == 5007);
+
+        console.log(parseInt(divIt.length), divPemasaran.length, divHrd.length, divUmum.length, divPembelanjaan.length, divPersonalia.length)
+
+        $.ajax({
+            url: 'http://localhost:29539/api/Divisions'
+        }).done((res) => {
+
+            const dataDivision = res.data.map((data) => data.name);
+            console.log(dataDivision)
+
+
+            var options = {
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '60%',
+                        }
+                    }
+                },
+                chart: {
+                    type: 'donut'
+                },
+                series: [divPemasaran.length, divPersonalia.length, divPembelanjaan.length, divUmum.length, divHrd.length, divIt.length],
+                labels: dataDivision
+
+            }
+
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+            chart.render();
+        })
+
+    })
+
+
+})
