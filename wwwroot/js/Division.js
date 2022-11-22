@@ -31,10 +31,11 @@
     dom: "Bfrtip",
     buttons: {
         buttons: [
-            { extend: 'pdf', className: 'btn btn-secondary' },
-            { extend: 'excel', className: 'btn btn-success' },
-            { extend: 'copy', className: 'btn btn-light' },
-            { extend: 'colvis', className: 'btn btn-info' }
+            { extend: 'colvis'},
+            { extend: 'pdf', title: 'Data_Division' },
+            { extend: 'excel', title: 'Data_Division'  },
+            { extend: 'copy', title: 'Data_Division'  },
+           
         ],
     }
 });

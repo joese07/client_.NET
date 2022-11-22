@@ -35,10 +35,11 @@ $("#data-departement").DataTable({
     dom: "Bfrtip",
     buttons: {
         buttons: [
-            { extend: 'pdf', className: 'btn btn-secondary' },
-            { extend: 'excel', className: 'btn btn-success' },
-            { extend: 'copy', className: 'btn btn-light' },
-            {extend: 'colvis', className: 'btn btn-info'}         
+            { extend: 'colvis'},
+            { extend: 'pdf', title: 'Data_Departement' },
+            { extend: 'excel', title: 'Data_Departement'},
+            { extend: 'copy', title: 'Data_Departement' }
+          
         ],
     }
 });
@@ -177,7 +178,7 @@ function deleteDepartement(id) {
                         location.reload();
                     })
                 },
-                error: function (xhr, ajaxOptions, thrownError) {
+                error: function () {
                     Swal.fire("Error deleting!", "Please try again", "error");
                 }
             });
