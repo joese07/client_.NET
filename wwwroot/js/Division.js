@@ -51,7 +51,12 @@ function createDivision() {
             name: nameDivision
         },
         success: function (data) {
-            alert("Add Data SuccessFull");
+            Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText: "Ok" }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#createModal').modal('hide')
+                    location.reload();
+                }
+            })
         }
     })
 
@@ -103,8 +108,12 @@ function saveDivision(id) {
         data: {
             name: dataName,
         }, success: function (data) {
-            alert("Edit data successfull")
-            location.reload();
+            Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText: "Ok" }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#detailModal').modal('hide');
+                    location.reload();
+                }
+            })
         }
     })
 
@@ -154,17 +163,18 @@ $(document).ready(function () {
 
         const divHrd = res.data.filter((data) => data.divisionId == 5006);
 
-
         const divIt = res.data.filter((data) => data.divisionId == 5007);
 
-        console.log(parseInt(divIt.length), divPemasaran.length, divHrd.length, divUmum.length, divPembelanjaan.length, divPersonalia.length)
+        const divCs = res.data.filter((data) => data.divisionId == 6002);
+        
+       
 
         $.ajax({
             url: 'http://localhost:29539/api/Divisions'
         }).done((res) => {
 
             const dataDivision = res.data.map((data) => data.name);
-            console.log(dataDivision)
+         
 
 
             var options = {
@@ -178,7 +188,7 @@ $(document).ready(function () {
                 chart: {
                     type: 'donut'
                 },
-                series: [divPemasaran.length, divPersonalia.length, divPembelanjaan.length, divUmum.length, divHrd.length, divIt.length],
+                series: [divPersonalia.length, divPembelanjaan.length, divUmum.length, divHrd.length, divIt.length, divCs.length],
                 labels: dataDivision
 
             }

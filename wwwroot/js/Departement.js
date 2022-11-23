@@ -67,11 +67,15 @@ function createDepartement() {
         url: 'http://localhost:29539/api/Departement',
         method: 'POST',
         dataType: 'json',
-        data: formData,
+        data: JSON.stringify(formData),
         cache: false,
         success: function (data) {
-            console.log(data)
-            Swal.fire("Done!", `${data.message}`, "success")
+            Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText:"Ok" }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#createModal').modal('hide')
+                    location.reload();
+                }
+            })
         }
     })
 
@@ -133,7 +137,7 @@ function editDepartement(name, divisionId, id) {
     dataDivisionId = `<select class="form-control" id="DivisionIdDepartement"></select>  <div class="invalid-feedback">Please select a valid division</div>`;
 
     let dataEdit = "";
-    dataEdit = `<button type="submit" class="btn btn-primary" onclick="saveEdit('${id}')">Save Change</button >`;
+    dataEdit = `<button type="button" class="btn btn-primary" onclick="saveEdit('${id}')">Save Change</button >`;
 
     $("#button-edit").html(dataEdit);
     $("#DetailNamaDepartement").html(dataNama);
@@ -142,19 +146,23 @@ function editDepartement(name, divisionId, id) {
 
 function saveEdit(id) {
 
-    let dataName = $("#dataNama").val();
-    let dataDivisionId = $("#DivisionIdDepartement").val();
+    const formData = {
+        name: $("#dataNama").val(),
+        divisionId: $("#DivisionIdDepartement").val(),
+    };
 
     $.ajax({
         url: `http://localhost:29539/api/Departement/${id}`,
         method: 'PUT',
         dataType: 'json',
-        data: {
-            name: dataName,
-            divisionId: dataDivisionId
-        },
-        success: function (responses) {
-            Swal.fire("Done!", "It was succesfully change!", "success")
+        data: JSON.stringify(formData),
+        success: function (data) {
+            Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText: "Ok" }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#detailModal').modal('hide')
+                    location.reload();
+                }
+            })
         }
     })
 }
@@ -195,85 +203,83 @@ $(document).ready(function () {
         url: 'http://localhost:29539/api/Departement'
     }).done((res) => {
 
-        const dataDepartement = res.data.map((data) => data.name);
+        const dataDepartement = res.data.map((data) => data.id);
+
+        const dataNameDepartement = res.data.map((data) => data.name);
 
         console.log(dataDepartement);
 
+        $.ajax({
+            url: 'http://localhost:29539/api/Employee'
+        }).done((res) => {
 
-        var options = {
-            series: [
-                {
-                    name: 'Actual',
-                    data: 
-                    [
-                        {
-                            x: '2011',
-                            y: 5292,
+            const dataDepOne = res.data.filter((data) => data.departementId == dataDepartement[0]);
 
-                        },
-                        {
-                            x: '2012',
-                            y: 4432,
+            const dataDepTwo = res.data.filter((data) => data.departementId == dataDepartement[1]);
 
-                        },
-                        {
-                            x: '2013',
-                            y: 5423,
+            const dataDepThree = res.data.filter((data) => data.departementId == dataDepartement[2]);
 
-                        },
-                        {
-                            x: '2014',
-                            y: 6653,
+            const dataDepFour = res.data.filter((data) => data.departementId == dataDepartement[3]);
 
-                        },
-                        {
-                            x: '2015',
-                            y: 8133,
+            const arrayData = [dataDepOne.length, dataDepTwo.length, dataDepThree.length, dataDepFour.length]
 
-                        },
-                        {
-                            x: '2016',
-                            y: 7132,
+            console.log(res.data);
+            console.log(arrayData);
 
-                        },
-                        {
-                            x: '2017',
-                            y: 7332,
-
-                        },
-                        {
-                            x: '2018',
-                            y: 6553,
-
+            var options = {
+                series: [{
+                    name: 'Free Cash Flow',
+                    data: arrayData
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: dataNameDepartement,
+                },
+                yaxis: {
+                    title: {
+                        text: '$ (thousands)'
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (val) {
+                            return "$ " + val + " thousands"
                         }
-                    ]
+                    }
                 }
-            ],
-            chart: {
-                height: 350,
-                type: 'bar'
-            },
-            plotOptions: {
-                bar: {
-                    columnWidth: '60%'
-                }
-            },
-            colors: ['#00E396'],
-            dataLabels: {
-                enabled: false
-            },
-            legend: {
-                show: true,
-                showForSingleSeries: true,
-                customLegendItems: ['Actual'],
-                markers: {
-                    fillColors: ['#00E396']
-                }
-            }
-        };
+            };
 
-        var chart = new ApexCharts(document.querySelector("#chart-departement"), options);
-        chart.render();
+            var chart = new ApexCharts(document.querySelector("#chart-departement"), options);
+            chart.render();
+
+
+
+        
+        })
+
+
+       
     })
 
 

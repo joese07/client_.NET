@@ -17,5 +17,11 @@
     <Folder Include="Views\Division\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\Employee\" />
+    <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\assets\img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\" />
+    <Content Remove="wwwroot\assets\img\" />
   </ItemGroup>
 </Project>

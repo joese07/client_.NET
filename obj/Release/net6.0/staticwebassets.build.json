@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "QP9oGjES3GrhJCdKALsQirPxIhNQZMfu3JW8Lo9oYIM=",
+  "Hash": "wHogGLN1UHp7mTDHxac4h1ogHLrORpIwB3JW4O1CMaA=",
   "Source": "Client",
   "BasePath": "_content/Client",
   "Mode": "Default",
@@ -68,6 +68,40 @@
       "OriginalItemSpec": "wwwroot/.DS_Store"
     },
     {
+      "Identity": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/bg-login.jpeg",
+      "SourceId": "Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/",
+      "BasePath": "_content/Client",
+      "RelativePath": "bg-login.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/bg-login.jpeg"
+    },
+    {
+      "Identity": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/css/login.css",
+      "SourceId": "Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/",
+      "BasePath": "_content/Client",
+      "RelativePath": "css/login.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/login.css"
+    },
+    {
       "Identity": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/css/site.css",
       "SourceId": "Client",
       "SourceType": "Discovered",
@@ -117,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/favicon.ico"
+    },
+    {
+      "Identity": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/Auth.js",
+      "SourceId": "Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/",
+      "BasePath": "_content/Client",
+      "RelativePath": "js/Auth.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/Auth.js"
     },
     {
       "Identity": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/Departement.js",

@@ -9,6 +9,14 @@
       "PackagePath": "staticwebassets/.DS_Store"
     },
     {
+      "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/bg-login.jpeg",
+      "PackagePath": "staticwebassets/bg-login.jpeg"
+    },
+    {
+      "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/css/login.css",
+      "PackagePath": "staticwebassets/css/login.css"
+    },
+    {
       "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
@@ -19,6 +27,10 @@
     {
       "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/favicon.ico",
       "PackagePath": "staticwebassets/favicon.ico"
+    },
+    {
+      "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/Auth.js",
+      "PackagePath": "staticwebassets/js/Auth.js"
     },
     {
       "Id": "/Users/yohanesjoese/Projects/MVC/Client/wwwroot/js/Departement.js",

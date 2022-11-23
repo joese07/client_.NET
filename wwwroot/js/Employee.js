@@ -36,7 +36,6 @@ function format(d) {
     );
 }
 
-
 $(document).ready(function () {
     var table = $("#example").DataTable({
         ajax: {
@@ -90,3 +89,39 @@ $(document).ready(function () {
         }
     });
 })
+
+
+
+function register() {
+
+    const dataRegister = {
+        
+    };
+
+    const dataJson = JSON.stringify(dataRegister);
+
+    $.ajax({
+        type: 'POST',
+        url: "http://localhost:29539/api/Auth/Register",
+        data: JSON.stringify({
+            fullName: "joese rio Telysana",
+            email: "joese@gmail.com",
+            birthDate: "2202",
+            gender: "laki- laki",
+            phoneNumber: "029292922",
+            password: "joese123",
+            retypePassword: "joese123",
+            departementId: 6019,
+        }),
+        success: function (data) {
+            Swal.fire("Done!", `${data.message}`, "success").then(function () {
+                location.reload();
+            })
+        },
+        error: function (data) {
+            Swal.fire("Error!", `${data.message}`, "error")
+        },
+        dataType: 'json',
+        contentType: "application/json"
+    });
+}
