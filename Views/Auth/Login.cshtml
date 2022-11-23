@@ -14,19 +14,19 @@
                 <form class="needs-validation" novalidate>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" required>
                         <div class="invalid-feedback">Please input your email</div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" required>
+                        <input type="password" class="form-control" onchange="dataPassword()" id="inputPassword" required>
                         <div class="invalid-feedback">Please input your password</div>
                     </div>
                     <div class="mb-3">
                         <a asp-controller="Auth" asp-action="ForgotPassword">Forgot Password?</a>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Sign In</button>
+                        <input type="button" class="btn btn-primary" id="btn_submit" value="Log in"></input>
                     </div>
                 </form>
                 <div class="text-center mt-5">

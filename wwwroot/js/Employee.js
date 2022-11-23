@@ -92,36 +92,45 @@ $(document).ready(function () {
 
 
 
-function register() {
+$(document).ready(function register() {
+    $("#btn_submit_register").click(function () {
+        const fullname = $("#inputfullname").val().trim();
+        const email = $("#inputemail").val().trim();
+        const phone = $("#inputphonenumber").val().trim();
+        const birthdate = $("#inputbirthdate").val().trim();
+        const gender = $("#inputgender").val().trim();
+        const password = $("#inputpassword").val().trim();
+        const confpassword = $("#inputconfirmpassword").val().trim();
+        const idDepartement = $("#inputdepartement").val().trim();
 
-    const dataRegister = {
-        
-    };
+        $.ajax({
+            url: 'http://localhost:29539/api/Auth/Register',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                birthDate: birthdate,
+                fullName: fullname,
+                email: email,
+                gender: gender,
+                phoneNumber: phone,
+                departementId: idDepartement,
+                password: password,
+                retypePassword: confpassword
+            },
+            success: function (data) {
+                if (data.message == "Email Already Exists") {
+                    Swal.fire("Error!", `${data.message}`, "error")
+                } else {
+                    Swal.fire("Done!", `${data.message}`, "success").then(function () {
+                        location.reload();
+                    })
+                }
+            },
+            error: function (data) {
+                Swal.fire("Error!", `${data.message}`, "error")
+            },
 
-    const dataJson = JSON.stringify(dataRegister);
-
-    $.ajax({
-        type: 'POST',
-        url: "http://localhost:29539/api/Auth/Register",
-        data: JSON.stringify({
-            fullName: "joese rio Telysana",
-            email: "joese@gmail.com",
-            birthDate: "2202",
-            gender: "laki- laki",
-            phoneNumber: "029292922",
-            password: "joese123",
-            retypePassword: "joese123",
-            departementId: 6019,
-        }),
-        success: function (data) {
-            Swal.fire("Done!", `${data.message}`, "success").then(function () {
-                location.reload();
-            })
-        },
-        error: function (data) {
-            Swal.fire("Error!", `${data.message}`, "error")
-        },
-        dataType: 'json',
-        contentType: "application/json"
-    });
-}
+        });
+    })
+   
+})
