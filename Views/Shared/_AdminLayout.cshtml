@@ -10,17 +10,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>AdminLTE 3 | Top Navigation</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/staterestore/1.2.0/css/stateRestore.dataTables.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.3/css/buttons.bootstrap4.min.css" />
@@ -64,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                         <a href="#" class="dropdown-item dropdown-footer">Porfile</a>
                         <div class="dropdown-divider"></div>
-                        <a  asp-controller="Auth" asp-action="Login" class="dropdown-item dropdown-footer">Log Out</a>
+                        <button type="button" class="dropdown-item dropdown-footer" onclick="logout()">Log out</button>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -252,10 +243,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ./wrapper -->
     <!-- REQUIRED SCRIPTS -->
     <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/staterestore/1.2.0/js/dataTables.stateRestore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    <script src="~/js/Division.js"></script>
-    <script src="~/js/Employee.js"></script>
-    <script src="~/js/Departement.js"></script>
+
+
     @*<script src="~/lib/plugins/jquery/jquery.min.js"></script>*@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>(() => {
@@ -276,15 +277,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }, false)
             })
         })()</script>
-    <script src="~/lib/plugins/chart.js/Chart.min.js"></script>
-    <!-- Bootstrap 4 -->
+
     <script src="~/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- SweetAlert2 -->
-    <script src="~/lib/plugins/sweetalert2/sweetalert2.min.js"></script>
-    <!-- Toastr -->
-    <script src="~/lib/plugins/toastr/toastr.min.js"></script>
-    <!-- AdminLTE App -->
     <script src="~/lib/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
+    <script src="~/js/Auth.js"></script>
+    <script src="~/js/Division.js"></script>
+    <script src="~/js/Employee.js"></script>
+    <script src="~/js/Departement.js"></script>
 </body>
 </html>

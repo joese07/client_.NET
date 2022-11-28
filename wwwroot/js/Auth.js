@@ -16,7 +16,8 @@
                     Swal.fire("Error!", `${data.message}`, "error")
                 } else {
                     Swal.fire("Done!", `${data.message}`, "success")
-                    console.log(data.token)
+                    sessionStorage.setItem("key", `${data.token}`);
+                    location.replace("/");
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -51,7 +52,6 @@ $(document).ready(function ForgotPassword() {
                 } else {
                     Swal.fire("Done!", `${data.message}`, "success").then(function () {
                         $('#change_password').modal('show');
-                        //location.replace('https://localhost:7104/Auth/NewPassword');
                         NewPassword(data.data);
                     })
                 }  
@@ -90,7 +90,7 @@ function confirmPassword(dataId) {
             dataType: 'json',
             data: dataInput,
             success: function (data) {
-                if (data.message == "Reset Password Failed") {
+                if (data.message == "Confirm Password Invalid" || data.message == "Reset Password Failed"  ) {
                     Swal.fire("Error!", `${data.message}`, "error")
                 } else {
                     Swal.fire("Done!", `${data.message}`, "success").then(function () {
@@ -105,3 +105,9 @@ function confirmPassword(dataId) {
         })
 }
 
+function logout() {
+    sessionStorage.clear();
+    console.log("test");
+    location.replace('https://localhost:7104/Auth/Login');
+
+}

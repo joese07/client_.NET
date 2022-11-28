@@ -1,7 +1,8 @@
 ﻿
 function format(d) {
+    console.log(d.birthDate)
     return
-    (
+    
         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
         '<tr>' +
         '<td>ID :</td>' +
@@ -9,7 +10,7 @@ function format(d) {
         '</tr>' +
         '<tr>' +
         '<td>FullName :</td>' +
-        '<td>' + d.fullname + '</td>' +
+        '<td>' + d.fullName + '</td>' +
         '</tr>' +
         '<tr>' +
         '<td>Gender :</td>' +
@@ -32,15 +33,13 @@ function format(d) {
         '<td>' + d.departementId + '</td>' +
         '</tr>' +
         '</table>'
-        
-    );
 }
 
 $(document).ready(function () {
-    var table = $("#example").DataTable({
-        ajax: {
-            url: "http://localhost:29539/api/Employee",
-            dataSrc: "data",
+    var table = $("#table_employee").DataTable({
+        ajax: 'http://localhost:29539/api/Employee',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
         },
         columns: [
             {
@@ -49,59 +48,85 @@ $(document).ready(function () {
                 data: null,
                 defaultContent: '',
             },
+            //{
+            //    data: null,
+            //    render: function (data, type, row, meta) {
+            //        return meta.row + meta.settings._iDisplayStart + 1;
+            //    },
+            //},
             {
-                data: null,
-                render: function (data, type, row, meta) {
-                    return meta.row + meta.settings._iDisplayStart + 1;
-                },
+                data: 'id',
+                //render: function (data, type, row) {
+                //    return data.id;
+                //}
             },
             {
-                data: "id",
+                data: 'fullName',
+                //render: function (data, type, row) {
+                //    return data.fullName;
+                //}
             },
             {
-                data: "fullName",
+                data: 'email',
+                //render: function (data, type, row) {
+                //    return data.email;
+                //}
             },
             {
-                data: "email",
-            },
-            {
-                data: "departementId",
+                data: 'departementId',
+                //render: function (data, type, row) {
+                //    return data.departementId;
+                //}
             },
         ],
-        "order": [[1, 'asc']]
+        order: [[1, 'asc']],
+        dom: 'Blfrtip',
+        buttons:['pdf','colvis']
     });
 
-    //Add event listener for opening and closing details
-    $('#example tbody').on('click', 'td.dt-control', function () {
-        var tr = $(this).closest('tr');
+    $('#table_employee tbody').on('click', 'td.dt-control', function () {
+        var tr = $(this).parents('tr');
         var row = table.row(tr);
-
+        
         if (row.child.isShown()) {
             //This row is already open - close it
-          
+
             row.child.hide();
             tr.removeClass('shown');
 
         } else {
-            //Open this row
-            row.child(format(row.data())).show();
+            const dataTable = row.data();
+            row.child(format(dataTable)).show();
             tr.addClass('shown');
         }
     });
+   
 })
 
+$.ajax({
+    url: 'http://localhost:29539/api/Departement',
+    headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("key"),
+    }
+}).done((res) => {
+    let departement = "";
+    $.each(res.data, function (key, val) {
+        departement += `<option value="${val.id}">${val.name}</option>`
+    });
 
+    $("#InputSelectDepartement").html(departement);
+})
 
 $(document).ready(function register() {
     $("#btn_submit_register").click(function () {
-        const fullname = $("#inputfullname").val().trim();
-        const email = $("#inputemail").val().trim();
-        const phone = $("#inputphonenumber").val().trim();
-        const birthdate = $("#inputbirthdate").val().trim();
-        const gender = $("#inputgender").val().trim();
-        const password = $("#inputpassword").val().trim();
-        const confpassword = $("#inputconfirmpassword").val().trim();
-        const idDepartement = $("#inputdepartement").val().trim();
+        const fullname = $("#inputfullname").val();
+        const email = $("#inputemail").val();
+        const phone = $("#inputphonenumber").val();
+        const birthdate = $("#inputbirthdate").val();
+        const gender = $("#inputgender").val();
+        const password = $("#inputpassword").val();
+        const confpassword = $("#inputconfirmpassword").val();
+        const idDepartement = $("#InputSelectDepartement").val();
 
         $.ajax({
             url: 'http://localhost:29539/api/Auth/Register',
@@ -117,12 +142,15 @@ $(document).ready(function register() {
                 password: password,
                 retypePassword: confpassword
             },
+            headers: {
+                "Authorization": "Bearer " + sessionStorage.getItem("key"),
+            },
             success: function (data) {
                 if (data.message == "Email Already Exists") {
                     Swal.fire("Error!", `${data.message}`, "error")
                 } else {
                     Swal.fire("Done!", `${data.message}`, "success").then(function () {
-                        location.reload();
+                    location.replace('https://localhost:7104/Auth/Login');  
                     })
                 }
             },

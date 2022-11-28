@@ -2,6 +2,9 @@
     ajax: {
         url: "http://localhost:29539/api/Divisions",
         dataSrc: "data",
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        },
     },
     columns: [
         {
@@ -50,6 +53,9 @@ function createDivision() {
         data: {
             name: nameDivision
         },
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        },
         success: function (data) {
             Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText: "Ok" }).then((result) => {
                 if (result.isConfirmed) {
@@ -65,7 +71,10 @@ function createDivision() {
 function detailDivision(id) {
     $.ajax({
         type: "GET",
-        url: `http://localhost:29539/api/Divisions/${id}`
+        url: `http://localhost:29539/api/Divisions/${id}`,
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        },
     }).done((res) => {
         let dataId = "";
         dataId = `<input type="text" class="form-control" value="${res.id}" readonly>`;
@@ -107,7 +116,10 @@ function saveDivision(id) {
         datatype: 'json',
         data: {
             name: dataName,
-        }, success: function (data) {
+        },
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        },success: function (data) {
             Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText: "Ok" }).then((result) => {
                 if (result.isConfirmed) {
                     $('#detailModal').modal('hide');
@@ -134,6 +146,9 @@ function deleteDivision(id) {
                 url: `http://localhost:29539/api/Divisions/${id}`,
                 type: 'DELETE',
                 dataType: 'json',
+                headers: {
+                    "Authorization": "Bearer " + sessionStorage.getItem("key"),
+                },
                 success: function () {
                     Swal.fire("Done!", "It was succesfully deleted!", "success").then(function () {
                         location.reload();
@@ -147,35 +162,49 @@ function deleteDivision(id) {
     });
 }
 
+
 $(document).ready(function () {
     $.ajax({
         url: 'http://localhost:29539/api/Departement',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        }
     }).done((res) => {
+ 
+        let divisionCount = []
 
-        //Data Series
-        const divPemasaran = res.data.filter((data) => data.divisionId == 5002);
+        res.data.forEach(departement => {
+            let found = divisionCount.find(e => {
+                return e.divisionId == departement.divisionId
+            })
 
-        const divPersonalia = res.data.filter((data) => data.divisionId == 5003);
+            if (found) {
+                found.count += 1
+            } else {
+                divisionCount.push({ divisionId: departement.divisionId, count:1 })
+            }
+        })
 
-        const divPembelanjaan = res.data.filter((data) => data.divisionId == 5004);
+        let result = divisionCount.map((e) => {
+            let newForm = { division: null, count: e.count }
 
-        const divUmum = res.data.filter((data) => data.divisionId == 5005);
+            $.ajax({
+                url: `http://localhost:29539/api/Divisions/${e.divisionId}`,
+                method: 'GET',
+                async: false,
+                dataType: 'json',
+                headers: {
+                    "Authorization": "Bearer " + sessionStorage.getItem("key"),
+                },
+            }).done((res) => {
+                newForm.division = res.name
+            })
+            return newForm
+        })
 
-        const divHrd = res.data.filter((data) => data.divisionId == 5006);
-
-        const divIt = res.data.filter((data) => data.divisionId == 5007);
-
-        const divCs = res.data.filter((data) => data.divisionId == 6002);
-        
-       
-
-        $.ajax({
-            url: 'http://localhost:29539/api/Divisions'
-        }).done((res) => {
-
-            const dataDivision = res.data.map((data) => data.name);
-         
-
+        let labels = result.map(e => e.division);
+        let series = result.map(e => e.count);
+      
 
             var options = {
                 plotOptions: {
@@ -188,18 +217,12 @@ $(document).ready(function () {
                 chart: {
                     type: 'donut'
                 },
-                series: [divPersonalia.length, divPembelanjaan.length, divUmum.length, divHrd.length, divIt.length, divCs.length],
-                labels: dataDivision
+                series: series,
+                labels: labels
 
             }
-
-
             var chart = new ApexCharts(document.querySelector("#chart"), options);
 
             chart.render();
-        })
-
     })
-
-
 })

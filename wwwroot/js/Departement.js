@@ -3,6 +3,9 @@ $("#data-departement").DataTable({
     ajax: {
         url: "http://localhost:29539/api/Departement",
         dataSrc: "data",
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+            }
     },
     columns: [
         {
@@ -46,6 +49,9 @@ $("#data-departement").DataTable({
 
 $.ajax({
     url: 'http://localhost:29539/api/Divisions',
+    headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem("key"),
+    }
 }).done((res) => {
     let divisions = "";
     $.each(res.data, function (key, val) {
@@ -55,37 +61,47 @@ $.ajax({
     $("#InputDivisionIdDepartement").html(divisions);
 });
 
+$(document).ready(function createDepartement() {
+    $("#butn_create_departement").click(function () {
+        const dataname = $("#InputNameDepartement").val();
+        const datadivisionId = $("#InputDivisionIdDepartement").val();
 
-
-function createDepartement() {
-    const formData = {
-        name: $("#InputNameDepartement").val(),
-        divisionId: $("#InputDivisionIdDepartement").val(),
-    };
-
-    $.ajax({
-        url: 'http://localhost:29539/api/Departement',
-        method: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(formData),
-        cache: false,
-        success: function (data) {
-            Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText:"Ok" }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#createModal').modal('hide')
-                    location.reload();
+            $.ajax({
+                url: 'http://localhost:29539/api/Departement',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    name: dataname,
+                    divisionId: datadivisionId
+                },
+                headers: {
+                    "Authorization": "Bearer " + sessionStorage.getItem("key"),
+                }, 
+                cache: false,
+                success: function (data) {
+                    Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText: "Ok" }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#createModal').modal('hide')
+                            location.reload();
+                        }
+                    })
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    Swal.fire("Error!", "Please try again", "error");
                 }
             })
-        }
-    })
+    }) 
 
-}
+})
 
 
 function detailDepartement(id) {
     $.ajax({
         type: "GET",
         url: `http://localhost:29539/api/Departement/${id}`,
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        }
     }).done((res) => {
         let dataId = "";
         dataId = `<input type="text" class="form-control" value="${res.id}" readonly>`;
@@ -121,6 +137,9 @@ function editDepartement(name, divisionId, id) {
 
     $.ajax({
         url: 'http://localhost:29539/api/Divisions',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        },
     }).done((res) => {
         let divisions = "";
         $.each(res.data, function (key, val) {
@@ -155,6 +174,9 @@ function saveEdit(id) {
         url: `http://localhost:29539/api/Departement/${id}`,
         method: 'PUT',
         dataType: 'json',
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        },
         data: JSON.stringify(formData),
         success: function (data) {
             Swal.fire({ title: "Done!", text: `${data.message}`, icon: "success", confirmButtonText: "Ok" }).then((result) => {
@@ -181,6 +203,9 @@ function deleteDepartement(id) {
                 url: `http://localhost:29539/api/Departement/${id}`,
                 type: 'DELETE',
                 dataType: 'json',
+                headers: {
+                    "Authorization": "Bearer " + sessionStorage.getItem("key"),
+                },
                 success: function () {
                     Swal.fire("Done!", "It was succesfully deleted!", "success").then(function () {
                         location.reload();
@@ -197,39 +222,55 @@ function deleteDepartement(id) {
 
 
 $(document).ready(function () {
-
-
     $.ajax({
-        url: 'http://localhost:29539/api/Departement'
+        url: 'http://localhost:29539/api/Employee',
+        method: 'GET',
+        dataType: 'json',
+         headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        },
     }).done((res) => {
 
-        const dataDepartement = res.data.map((data) => data.id);
+        let departementCount = []
 
-        const dataNameDepartement = res.data.map((data) => data.name);
+        res.data.forEach(employee => {
+            let found = departementCount.find(e => {
+                return e.departementId == employee.departementId
+            })
 
-        console.log(dataDepartement);
+            if (found) {
+                found.count += 1
+            } else {
+                departementCount.push({ departementId: employee.departementId, count: 1 })
+            }
+        })
 
-        $.ajax({
-            url: 'http://localhost:29539/api/Employee'
-        }).done((res) => {
+        let result = departementCount.map(e => {
+            let newData = { departement: null, count: e.count }
 
-            const dataDepOne = res.data.filter((data) => data.departementId == dataDepartement[0]);
+            $.ajax({
+                url: `http://localhost:29539/api/Departement/${e.departementId}`,
+                method: 'GET',
+                async: false,
+                dataType: 'json',
+                 headers: {
+                    "Authorization": "Bearer " + sessionStorage.getItem("key"),
+                }
+            }).done(res => {
+              
+                newData.departement = res.name
+            })
+            return newData
+        })
 
-            const dataDepTwo = res.data.filter((data) => data.departementId == dataDepartement[1]);
+        let dataDepartement = result.map(e => e.departement)
+        let dataEmployee = result.map(e => e.count)
 
-            const dataDepThree = res.data.filter((data) => data.departementId == dataDepartement[2]);
-
-            const dataDepFour = res.data.filter((data) => data.departementId == dataDepartement[3]);
-
-            const arrayData = [dataDepOne.length, dataDepTwo.length, dataDepThree.length, dataDepFour.length]
-
-            console.log(res.data);
-            console.log(arrayData);
-
+     
             var options = {
                 series: [{
-                    name: 'Free Cash Flow',
-                    data: arrayData
+                    name: 'Data Employee',
+                    data: dataEmployee
                 }],
                 chart: {
                     type: 'bar',
@@ -251,11 +292,11 @@ $(document).ready(function () {
                     colors: ['transparent']
                 },
                 xaxis: {
-                    categories: dataNameDepartement,
+                    categories: dataDepartement,
                 },
                 yaxis: {
                     title: {
-                        text: '$ (thousands)'
+                        text: ''
                     }
                 },
                 fill: {
@@ -264,7 +305,7 @@ $(document).ready(function () {
                 tooltip: {
                     y: {
                         formatter: function (val) {
-                            return "$ " + val + " thousands"
+                            return val + " person"
                         }
                     }
                 }
@@ -273,13 +314,6 @@ $(document).ready(function () {
             var chart = new ApexCharts(document.querySelector("#chart-departement"), options);
             chart.render();
 
-
-
-        
-        })
-
-
-       
     })
 
 
