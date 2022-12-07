@@ -17,7 +17,9 @@
                 } else {
                     Swal.fire("Done!", `${data.message}`, "success")
                     sessionStorage.setItem("key", `${data.token}`);
-                    location.replace("/");
+                    location.replace('https://localhost:7104');
+                   
+                  
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -27,7 +29,31 @@
     })
 })
 
+$(document).ready(function () {
 
+    const ca = sessionStorage.getItem("key");
+    const base6url = ca.split('.')[1];
+    const decodeValue = JSON.parse(window.atob(base6url));
+
+    $.ajax({
+        url: `http://localhost:29539/api/Employee/${decodeValue.userId}`,
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        }
+    }).done((res) => {
+        let namaUser = "";
+        namaUser = `Halo Admin <h1>${res.fullName}</h1>`
+
+        let dataImage = "";
+        dataImage = `<img  width="100" height="100" src="http://localhost:29539/api/ImageUpload/${res.gender}" class="img-circle elevation-2">`
+
+        $('#gambar').html(dataImage);
+        $("#nama_user_login").html(namaUser);
+    });
+
+})
+
+  
 $(document).ready(function ForgotPassword() {
     $("#btn_submit_fpass").click(function () {
         const fullName = $("#inputFullNameF").val();

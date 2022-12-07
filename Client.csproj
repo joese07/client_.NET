@@ -27,6 +27,11 @@
     <None Remove="Microsoft.EntityFrameworkCore.Proxies" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="Microsoft.AspNetCore.Http.Abstractions" />
+    <None Remove="Middlewares\" />
+    <None Remove="Area\" />
+    <None Remove="Area\Admin\" />
+    <None Remove="Area\Admin\Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Departement\" />
@@ -40,6 +45,10 @@
     <Folder Include="Repositories\Data\" />
     <Folder Include="Repositories\Interface\" />
     <Folder Include="Base\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Area\" />
+    <Folder Include="Area\Admin\" />
+    <Folder Include="Area\Admin\Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\Images\" />
@@ -59,5 +68,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Hosting": "2.2.7",
           "Microsoft.AspNetCore.Http": "2.2.2",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.EntityFrameworkCore": "7.0.0",
           "Microsoft.EntityFrameworkCore.Proxies": "7.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.0",

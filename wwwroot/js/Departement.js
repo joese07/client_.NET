@@ -61,6 +61,10 @@ $.ajax({
     $("#InputDivisionIdDepartement").html(divisions);
 });
 
+
+
+
+
 $(document).ready(function createDepartement() {
     $("#butn_create_departement").click(function () {
         const dataname = $("#InputNameDepartement").val();

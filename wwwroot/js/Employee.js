@@ -37,9 +37,12 @@ function format(d) {
 
 $(document).ready(function () {
     var table = $("#table_employee").DataTable({
-        ajax: 'http://localhost:29539/api/Employee',
-        headers: {
-            "Authorization": "Bearer " + sessionStorage.getItem("key"),
+        ajax: {
+            url: 'http://localhost:29539/api/Employee',
+            dataSrc: "data",
+            headers: {
+                "Authorization": "Bearer " + sessionStorage.getItem("key"),
+            },
         },
         columns: [
             {
